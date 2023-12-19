@@ -2,8 +2,8 @@ trigger:
   - main
 
 variables:
-  - name: BuildConfiguration
-    value: "Release"
+  - name: task
+    value: "Test Pipeline tasks:"
 
 resources:
   - repo: self
@@ -12,11 +12,11 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-  - stage: stage1
+  - stage: Stage1
     jobs:
-      - job: Stage1Job1
+      - job: Job1
         steps:
-          - script: echo Hello, world!
+          - script: echo Hello, $test
             displayName: 'Run a one-line script'         
           
           - script: |
@@ -31,7 +31,7 @@ stages:
               script: |
                 echo "Bash task: Test" 
     
-      - job: Stage1Job2
+      - job: Job2
         steps:
           - task: PowerShell@2
             displayName: 'PowerShell Task: Run inline Powershell command'
@@ -42,9 +42,8 @@ stages:
 
   - stage: Stage2
     jobs:
-      - job: Stage2Job1
-        steps:       
-
+      - job: Job1
+        steps:
           - task: CmdLine@2
             displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
             inputs:
@@ -67,7 +66,7 @@ stages:
                 echo "Structure of work folder of this pipeline:"
                 tree $(Agent.WorkFolder)/1
 
-      - job: Stage2Job2
+      - job: Job2
         steps:
           - task: CopyFiles@2
             displayName: 'Copy Files'
@@ -79,32 +78,25 @@ stages:
             displayName: 'Publish Artifacts'
             inputs:
               pathToPublish: $(Build.ArtifactStagingDirectory)
-              artifactName: MyBuildOutputs
+              artifactName: scriptfile
 
           - task: PowerShell@2
             displayName: 'PowerShell Task: Run scripts from file'
             inputs:
               targetType: 'filePath'
               filePath: 'Pipelines/Templates/PowerShell/test.ps1'
+
+    # Download an artifact named 'scriptfile' to ps folder in $(Build.SourcesDirectory)
+      - Job: Job3
+        steps:          
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifactName: 'scriptfile'
+              targetPath: $(Build.SourcesDirectory)/ps
           
           - task: CmdLine@2
             displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
             inputs:
-              script: |         
-                echo "Build.ArtifactStagingDirectory:" 
-                echo "$(Build.ArtifactStagingDirectory)"
-      
-                echo "Build.BinariesDirectory:" 
-                echo "$(Build.BinariesDirectory)"
-      
-                echo "Build.SourcesDirectory:"
-                echo "$(Build.SourcesDirectory)"
-
-                echo  "System.DefaultWorkingDirectory:"
-                echo  "$(System.DefaultWorkingDirectory)"
-
-                echo  "Pipeline.Workspace:"
-                echo  "$(Pipeline.Workspace)"
-
+              script: |   
                 echo "Structure of work folder of this pipeline:"
                 tree $(Agent.WorkFolder)/1
