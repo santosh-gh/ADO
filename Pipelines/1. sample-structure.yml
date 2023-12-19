@@ -72,7 +72,7 @@ stages:
             displayName: 'Publish Artifacts'
             inputs:
               pathToPublish: $(Build.ArtifactStagingDirectory)
-              artifactName: scriptfile
+              artifactName: 'scriptfile'
 
           - task: PowerShell@2
             displayName: 'PowerShell Task: Run scripts from file'
