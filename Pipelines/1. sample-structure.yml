@@ -87,7 +87,7 @@ stages:
               filePath: 'Pipelines/Templates/PowerShell/test.ps1'
 
     # Download an artifact named 'scriptfile' to ps folder in $(Build.SourcesDirectory)
-      - Job: Job3
+      - job: Job3
         steps:          
           - task: DownloadPipelineArtifact@2
             inputs:
