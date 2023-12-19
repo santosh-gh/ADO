@@ -85,6 +85,14 @@ stages:
             inputs:
               targetType: 'filePath'
               filePath: 'Pipelines/Templates/PowerShell/test.ps1'
+              
+          - task: PowerShell@2
+            displaName: List all folders in $(Pipeline.Workspace)
+            inputs: 'inline'
+            pwsh: true
+            script: |
+              Get-ChildItem - path $(Pipeline.Workspace)
+
 
     # Download an artifact named 'scriptfile' to ps folder in $(Build.SourcesDirectory)
       - job: Job3

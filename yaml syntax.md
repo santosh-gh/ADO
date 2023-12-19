@@ -4,7 +4,7 @@
 # Scalars (strings/numbers/booleans)   
 name: 'Modern Math'     # string  
 author: Ram             # string      
-publisher: "abc"        # string  
+publisher: "ABC"        # string  
 edition: 2              # integer              
 price: 10.50            # float                    
 textbook: true          # boolean type 
