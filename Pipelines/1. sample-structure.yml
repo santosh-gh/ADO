@@ -1,4 +1,4 @@
-trigger: master
+trigger: main
 
 variables:
   - name: BuildConfiguration
@@ -8,7 +8,7 @@ resources:
   - repo: self
 
 pool:
-  - vmImage: ubuntu-latest
+  vmImage: ubuntu-latest
 
 stages:
   - stage: stage-one
@@ -33,7 +33,7 @@ stages:
       - job: stage1-job-two
         steps:
           - task: PowerShell@2
-            displayname: 'PowerShell Task: Run inline Powershell command'
+            displayName: 'PowerShell Task: Run inline Powershell command'
             inputs:
               targetType: 'inline'
               script: Write-Host "##vso[task.LogIssue type=warning;]This is the warning"
@@ -45,7 +45,7 @@ stages:
         steps:       
 
           - task: CmdLine@2
-            displayname: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
+            displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
             inputs:
               script: |         
                 echo "Build.ArtifactStagingDirectory:" 
@@ -69,25 +69,25 @@ stages:
       - job: stage2-job-two
         steps:
           - task: CopyFiles@2
-            displayname: 'Copy Files'
+            displayName: 'Copy Files'
             inputs:
               contents: 'Pipelines/Templates/PowerShell/test.ps1'
               targetFolder: $(Build.ArtifactStagingDirectory)
               
           - task: PublishBuildArtifacts@1
-            displayname: 'Publish Artifacts'
+            displayName: 'Publish Artifacts'
             inputs:
               pathToPublish: $(Build.ArtifactStagingDirectory)
               artifactName: MyBuildOutputs
 
           - task: PowerShell@2
-            displayname: 'PowerShell Task: Run scripts from file'
+            displayName: 'PowerShell Task: Run scripts from file'
             inputs:
               targetType: 'filePath'
               filePath: 'Pipelines/Templates/PowerShell/test.ps1'
           
           - task: CmdLine@2
-            displayname: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
+            displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
             inputs:
               script: |         
                 echo "Build.ArtifactStagingDirectory:" 
