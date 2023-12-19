@@ -88,7 +88,7 @@ stages:
 
           - task: PowerShell@2
             displayName: List all folders in $(Pipeline.Workspace)
-            inputs: 'inline'
+            targetType: 'inline'
             pwsh: true
             script: |
               Get-ChildItem - path $(Pipeline.Workspace)
