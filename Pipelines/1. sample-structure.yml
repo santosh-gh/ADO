@@ -91,7 +91,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                Get-ChildItem - path $(Pipeline.Workspace)
+                Get-ChildItem -path $(Pipeline.Workspace)
 
     # Download an artifact named 'scriptfile' to ps folder in $(Build.SourcesDirectory)
       - job: Job3
