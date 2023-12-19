@@ -87,7 +87,7 @@ stages:
               filePath: 'Pipelines/Templates/PowerShell/test.ps1'
 
           - task: PowerShell@2
-            displaName: List all folders in $(Pipeline.Workspace)
+            displayName: List all folders in $(Pipeline.Workspace)
             inputs: 'inline'
             pwsh: true
             script: |
