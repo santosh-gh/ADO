@@ -16,7 +16,7 @@ stages:
     jobs:
       - job: Job1
         steps:
-          - script: echo Hello, $(test)
+          - script: echo Hello, $(task)
             displayName: 'Run a one-line script'         
           
           - script: |
