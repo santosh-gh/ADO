@@ -88,11 +88,11 @@ stages:
 
           - task: PowerShell@2
             displayName: List all folders in $(Pipeline.Workspace)
+            inputs:
             targetType: 'inline'
             pwsh: true
             script: |
               Get-ChildItem - path $(Pipeline.Workspace)
-
 
     # Download an artifact named 'scriptfile' to ps folder in $(Build.SourcesDirectory)
       - job: Job3
