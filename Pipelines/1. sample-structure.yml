@@ -12,7 +12,7 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-  - stage: stage-one
+  - stage: stage1
     jobs:
       - job: stage1-job-one
         steps:
@@ -40,7 +40,7 @@ stages:
               script: Write-Host "##vso[task.LogIssue type=warning;]This is the warning"
               # Writes a warning to build summary and to log in yellow text   
 
-  - stage: stage-two
+  - stage: stage2
     jobs:
       - job: stage2-job-one
         steps:       
