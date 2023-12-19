@@ -1,0 +1,109 @@
+trigger: master
+
+variables:
+  - name: BuildConfiguration
+    value: "Release"
+
+resources:
+  - repo: self
+
+pool:
+  - vmImage: ubuntu-latest
+
+stages:
+  - stage: stage-one
+    jobs:
+      - job: stage1-job-one
+        steps:
+          - script: echo Hello, world!
+            displayName: 'Run a one-line script'         
+          
+          - script: |
+              echo Add other tasks to build, test, and deploy your project.
+              echo See https://aka.ms/yaml
+            displayName: 'Run a multi-line script'
+
+          - task: Bash@3
+            displayName: 'Bash Task: Run a Bash script on macOS, Linux, or Windows.'
+            inputs:
+              targetType: inline
+              script: |
+                echo "Bash task: Test" 
+    
+      - job: stage1-job-two
+        steps:
+          - task: PowerShell@2
+            displayname: 'PowerShell Task: Run inline Powershell command'
+            inputs:
+              targetType: 'inline'
+              script: Write-Host "##vso[task.LogIssue type=warning;]This is the warning"
+              # Writes a warning to build summary and to log in yellow text   
+
+  - stage: stage-two
+    jobs:
+      - job: stage2-job-one
+        steps:       
+
+          - task: CmdLine@2
+            displayname: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
+            inputs:
+              script: |         
+                echo "Build.ArtifactStagingDirectory:" 
+                echo "$(Build.ArtifactStagingDirectory)"
+      
+                echo "Build.BinariesDirectory:" 
+                echo "$(Build.BinariesDirectory)"
+      
+                echo "Build.SourcesDirectory:"
+                echo "$(Build.SourcesDirectory)"
+
+                echo  "System.DefaultWorkingDirectory:"
+                echo  "$(System.DefaultWorkingDirectory)"
+
+                echo  "Pipeline.Workspace:"
+                echo  "$(Pipeline.Workspace)"
+
+                echo "Structure of work folder of this pipeline:"
+                tree $(Agent.WorkFolder)/1
+
+      - job: stage2-job-two
+        steps:
+          - task: CopyFiles@2
+            displayname: 'Copy Files'
+            inputs:
+              contents: 'Pipelines/Templates/PowerShell/test.ps1'
+              targetFolder: $(Build.ArtifactStagingDirectory)
+              
+          - task: PublishBuildArtifacts@1
+            displayname: 'Publish Artifacts'
+            inputs:
+              pathToPublish: $(Build.ArtifactStagingDirectory)
+              artifactName: MyBuildOutputs
+
+          - task: PowerShell@2
+            displayname: 'PowerShell Task: Run scripts from file'
+            inputs:
+              targetType: 'filePath'
+              filePath: 'Pipelines/Templates/PowerShell/test.ps1'
+          
+          - task: CmdLine@2
+            displayname: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
+            inputs:
+              script: |         
+                echo "Build.ArtifactStagingDirectory:" 
+                echo "$(Build.ArtifactStagingDirectory)"
+      
+                echo "Build.BinariesDirectory:" 
+                echo "$(Build.BinariesDirectory)"
+      
+                echo "Build.SourcesDirectory:"
+                echo "$(Build.SourcesDirectory)"
+
+                echo  "System.DefaultWorkingDirectory:"
+                echo  "$(System.DefaultWorkingDirectory)"
+
+                echo  "Pipeline.Workspace:"
+                echo  "$(Pipeline.Workspace)"
+
+                echo "Structure of work folder of this pipeline:"
+                tree $(Agent.WorkFolder)/1
