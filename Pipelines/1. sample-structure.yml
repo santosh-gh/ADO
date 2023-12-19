@@ -67,7 +67,13 @@ stages:
                 tree $(Agent.WorkFolder)/1
 
       - job: Job2
-        steps:             
+        steps:    
+          - task: CopyFiles@2
+            displayName: 'Copy Files'
+            inputs:
+              contents: 'Pipelines/Templates/PowerShell/test.ps1'
+              targetFolder: $(Build.ArtifactStagingDirectory)
+
           - task: PublishBuildArtifacts@1
             displayName: 'Publish Artifacts'
             inputs:
@@ -82,14 +88,8 @@ stages:
 
     # Download an artifact named 'scriptfile' to ps folder in $(Build.SourcesDirectory)
       - job: Job3
-        dependsOn: Job2
+        #dependsOn: Job2
         steps:  
-          - task: CopyFiles@2
-            displayName: 'Copy Files'
-            inputs:
-              contents: 'Pipelines/Templates/PowerShell/test.ps1'
-              targetFolder: $(Build.ArtifactStagingDirectory)
-
           - task: DownloadPipelineArtifact@2
             displayName: 'Download Artifact'
             inputs:
