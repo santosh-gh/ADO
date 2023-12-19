@@ -82,6 +82,7 @@ stages:
 
     # Download an artifact named 'scriptfile' to ps folder in $(Build.SourcesDirectory)
       - job: Job3
+        dependsOn: Job2
         steps:  
           - task: CopyFiles@2
             displayName: 'Copy Files'
