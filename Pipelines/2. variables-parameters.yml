@@ -13,18 +13,18 @@ variables:      # pipeline-level
 stages:
   - stage: Stage1
     variables:    # stage-level
-    var2: 'stage1-var'
+      var2: 'stage1-var'
     jobs:
       - job: Job1
         variables:  # job-level
-        var2: 'job1-var'
+          var2: 'job1-var'
         steps:
           - script: echo Hello, $(var2)
             displayName: 'print var2'   
 
   - stage: Stage2
     variables:    # stage-level
-    var3: 'stage2-var'
+      var3: 'stage2-var'
     jobs:
       - job: Job1
         steps:
@@ -35,7 +35,7 @@ stages:
     jobs:
       - job: Job1
         variables:    # job-level
-        var4: 'Stage3-job1-var'
+          var4: 'Stage3-job1-var'
         steps:
           - script: echo Hello, $(var4)
             displayName: 'print var4'
