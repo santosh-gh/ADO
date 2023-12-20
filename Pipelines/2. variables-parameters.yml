@@ -10,13 +10,13 @@ pool:
 
 # pipeline-level
 variables:
-- name: var1                    # name of a variable
-  value: 'pipeline-level var1'       # value of the variable
-- name: var2                    # name of a variable
-  value: 'pipeline-level var2'       # value of the variable
+- name: var1                                # name of a variable
+  value: 'pipeline-level var1'              # value of the variable
+- name: var2                                # name of a variable
+  value: 'pipeline-level var2'              # value of the variable
 
-- group: webapp-variables       # name of a variable group
-- template: Pipelines\Variables\build.yaml  # template reference
+- group: webapp-variables                   # name of a variable group
+- template: ../Variables/build.yaml  # template reference
 
 
 stages:
