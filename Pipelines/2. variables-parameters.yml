@@ -48,10 +48,10 @@ stages:
 
               echo Template Variable config = $(config)  
               echo Template Variable vmImage = $(vmImage) 
-               
+
       - job: Job2
         pool: 
-        vmImage: ${{ parameters.image }}
+          vmImage: ${{ parameters.image }}
         steps:
           - script: echo building $(Build.BuildNumber) with ${{ parameters.image }}
                               
