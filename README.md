@@ -38,4 +38,8 @@ Customizing Pipeline Execution
 
 https://learn.microsoft.com/en-us/credentials/applied-skills/implement-security-through-pipeline-using-devops/
 
+# template
+https://learn.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=azure-devops&pivots=templates-includes
+
+
 

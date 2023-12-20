@@ -7,7 +7,6 @@ resources:
 pool:
   vmImage: ubuntu-latest
 
-
 # pipeline-level
 variables:
 - name: var1                                # name of a variable
@@ -20,7 +19,7 @@ variables:
 
 parameters:
 - name: image
-  displayName: Pool Image
+  displayName: Select Pool Image
   type: string
   default: ubuntu-latest
   values:
@@ -54,7 +53,13 @@ stages:
           vmImage: ${{ parameters.image }}
         steps:
           - script: echo building $(Build.BuildNumber) with ${{ parameters.image }}
-                              
+
+      - job: Job3
+        steps:
+          - script: |
+              echo BuildNumber $(Build.BuildId) 
+              echo BuildNumber $(Build.BuildNumber) 
+              echo BuildNumber $(Build.BuildUri)                         
 
   - stage: Stage2
     variables:    # stage-level
