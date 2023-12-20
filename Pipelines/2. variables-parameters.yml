@@ -28,9 +28,9 @@ stages:
           - script: |
               displayName: 'print var1'  
               echo Hello, $(var1)
-              echo Hello, $(variable.DeploymentName)
-              echo Hello, $(variable.Environment)
-              echo Hello, $(variable.Region)
+              echo Hello, $(DeploymentName)
+              echo Hello, $(Environment)
+              echo Hello, $(variables.Region)
             
 
   - stage: Stage2
