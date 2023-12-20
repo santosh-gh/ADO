@@ -7,8 +7,13 @@ resources:
 pool:
   vmImage: ubuntu-latest
 
-variables:      # pipeline-level
-  var1: 'pipeline-level'
+
+# pipeline-level
+variables:
+- name: var1  # name of a variable
+  value: 'pipeline-level' # value of the variable
+
+- group: webapp-variables # name of a variable group
 
 stages:
   - stage: Stage1
@@ -19,8 +24,14 @@ stages:
         variables:  # job-level
           var1: 'job1-var'
         steps:
-          - script: echo Hello, $(var1)
-            displayName: 'print var1'   
+        
+          - script: |
+              displayName: 'print var1'  
+              echo Hello, $(var1)
+              echo Hello, $(variable.DeploymentName)
+              echo Hello, $(variable.Environment)
+              echo Hello, $(variable.Region)
+            
 
   - stage: Stage2
     variables:    # stage-level
@@ -29,7 +40,7 @@ stages:
       - job: Job1
         steps:
           - script: echo Hello, $(var1)
-            displayName: 'print var3'
+            displayName: 'print var1'
 
   - stage: Stage3
     jobs:
