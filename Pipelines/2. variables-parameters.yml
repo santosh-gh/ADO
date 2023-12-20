@@ -10,10 +10,13 @@ pool:
 
 # pipeline-level
 variables:
-- name: var1                # name of a variable
-  value: 'pipeline-level'   # value of the variable
-- group: webapp-variables   # name of a variable group
-- template: Variables/dev.yaml  # Template reference
+- name: var1                    # name of a variable
+  value: 'pipeline-level var1'       # value of the variable
+- name: var2                    # name of a variable
+  value: 'pipeline-level var2'       # value of the variable
+
+- group: webapp-variables       # name of a variable group
+- template: variables/build.yaml  # template reference
 
 stages:
   - stage: Stage1
@@ -27,6 +30,7 @@ stages:
           - script: |
               displayName: 'print var1'  
               echo Hello, $(var1)
+              echo Hello, $(var2)
 
               echo Hello, $(DeploymentName) 
               echo Hello, $(Environment)  
