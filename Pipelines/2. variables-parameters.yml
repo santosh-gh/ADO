@@ -57,9 +57,9 @@ stages:
       - job: Job3
         steps:
           - script: |
-              echo BuildNumber $(Build.BuildId) 
+              echo BuildId $(Build.BuildId) 
               echo BuildNumber $(Build.BuildNumber) 
-              echo BuildNumber $(Build.BuildUri)                         
+              echo BuildUri $(Build.BuildUri)                         
 
   - stage: Stage2
     variables:    # stage-level
