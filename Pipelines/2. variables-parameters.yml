@@ -17,10 +17,10 @@ stages:
     jobs:
       - job: Job1
         variables:  # job-level
-          var2: 'job1-var'
+          var1: 'job1-var'
         steps:
           - script: echo Hello, $(var1)
-            displayName: 'print var2'   
+            displayName: 'print var1'   
 
   - stage: Stage2
     variables:    # stage-level
@@ -34,11 +34,9 @@ stages:
   - stage: Stage3
     jobs:
       - job: Job1
-        variables:    # job-level
-          var1: 'Stage3-job1-var'
         steps:
           - script: echo Hello, $(var1)
-            displayName: 'print var4'
+            displayName: 'print var1'
 
       - job: Job2
         steps:
