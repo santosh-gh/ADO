@@ -16,7 +16,7 @@ variables:
   value: 'pipeline-level var2'              # value of the variable
 
 - group: webapp-variables                   # name of a variable group
-- template: 'Pipelines/Variables/build.yaml'          # template reference
+- template: 'build.yaml'          # template reference
 
 
 stages:
