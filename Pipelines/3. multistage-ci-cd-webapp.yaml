@@ -46,4 +46,4 @@ steps:
   inputs:
     azureSubscription: 'svc-connection'
     appName: samplewebapp89
-    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+    package: '$(Build.ArtifactStagingDirectory)/webappartifact/src.zip'
