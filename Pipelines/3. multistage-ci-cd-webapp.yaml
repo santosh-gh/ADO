@@ -40,3 +40,10 @@ steps:
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)' 
     artifactName: 'webappartifact'
+
+- task: AzureWebApp@1
+  displayName: Azure Web App Deploy
+  inputs:
+    azureSubscription: svc-connection
+    appName: samplewebapp
+    package: $(Build.ArtifactStagingDirectory)/**/*.zip
