@@ -44,6 +44,6 @@ steps:
 - task: AzureWebApp@1
   displayName: Azure Web App Deploy
   inputs:
-    azureSubscription: svc-connection
+    azureSubscription: 'svc-connection'
     appName: samplewebapp89
     package: $(Build.ArtifactStagingDirectory)/**/*.zip
