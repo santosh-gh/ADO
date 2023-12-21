@@ -45,5 +45,5 @@ steps:
   displayName: Azure Web App Deploy
   inputs:
     azureSubscription: 'svc-connection'
-    appName: samplewebapp89
+    appName: 'samplewebapp89'
     package: '$(Build.ArtifactStagingDirectory)/webappartifact/src.zip'
