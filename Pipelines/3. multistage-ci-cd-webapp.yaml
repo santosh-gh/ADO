@@ -45,6 +45,14 @@ stages:
             targetPath: '$(Build.ArtifactStagingDirectory)' 
             artifactName: 'webappartifact'  
 
+        # deploy to Azure Web App staging
+        - task: AzureWebApp@1
+          inputs:
+            azureSubscription: 'svc-connection'
+            appType: 'webApp'
+            appName: 'samplewebapp89'         
+            package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+
         - task: CmdLine@2
           displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
           inputs:
@@ -66,15 +74,7 @@ stages:
 
               echo "Structure of work folder of this pipeline:"
               tree $(Build.ArtifactStagingDirectory)
-
-        - task: AzureWebApp@1
-          displayName: Azure Web App Deploy
-          inputs:
-            azureSubscription: 'svc-connection'
-            appType: 'webApp'
-            appName: 'samplewebapp89'
-            package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-
+              
   # - stage: deploy
   #   jobs: 
   #   - job:
