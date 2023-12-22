@@ -1,0 +1,17 @@
+    jobs: 
+    - job:
+      steps:
+        # download the artifact drop from the previous job
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            source: 'current'
+            artifact:  ${{ patameter.ArtifactName }}
+            path: '$(Pipeline.Workspace)'
+
+        - task: AzureWebApp@1
+          inputs:
+            azureSubscription: ${{ patameter.ServiceConnection }}
+            appType: 'webApp'
+            appName:  ${{ patameter.ArtifactName }}
+            resourceGroupName: ${{ patameter.ResourceGroupName }}
+            package: '$(Pipeline.Workspace)/**/*.zip'

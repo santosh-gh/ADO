@@ -16,23 +16,20 @@ stages:
       - template: Templates/build.yaml
         parameters: 
           buildConfiguration: ${{ variables.buildConfiguration }}
+          ArtifactName: 'webappartifact'
         
 
-  # - stage: Deploy
-  #   jobs: 
-  #   - job:
-  #     steps:
-  #       # download the artifact drop from the previous job
-  #       - task: DownloadPipelineArtifact@2
-  #         inputs:
-  #           source: 'current'
-  #           artifact: 'webappartifact'
-  #           path: '$(Pipeline.Workspace)'
+  - stage: Infra
+    jobs: 
+      - template: Templates/infra.yaml
+        parameters: 
+          ServiceConnection: $(ServiceConnection)
 
-  #       - task: AzureWebApp@1
-  #         inputs:
-  #           azureSubscription: $(ServiceConnection)
-  #           appType: 'webApp'
-  #           appName: 'samplewebapp89'
-  #           resourceGroupName: 'test-rg'
-  #           package: '$(Pipeline.Workspace)/**/*.zip'
+  - stage: Deploy
+    jobs: 
+      - template: Templates/deploy.yaml
+        parameters: 
+          ServiceConnection: $(ServiceConnection)
+          AppName: 'samplewebapp89'
+          ArtifactName: 'webappartifact'
+          ResourceGroupName: 'test-rg'
