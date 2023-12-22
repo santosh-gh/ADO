@@ -1,6 +1,6 @@
 # Defined the Web Application Name and location  
 $webappname="samplewebapp89"  
-$AppServicePlan="samplewebappplan891"  
+$AppServicePlan="samplewebappplan892"  
 $location="Sweden Central" 
 $ResourceGroup="test-rg" 
 
