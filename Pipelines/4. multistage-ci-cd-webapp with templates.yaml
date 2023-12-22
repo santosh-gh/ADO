@@ -13,7 +13,7 @@ variables:
 stages:
   - stage: Build
     jobs: 
-      - templates: Templates/build.yaml
+      - template: Templates/build.yaml
         parameters: buildConfiguration ${{ variables.buildConfiguration }}
         
 
