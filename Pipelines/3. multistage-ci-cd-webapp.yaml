@@ -68,7 +68,7 @@ stages:
   - stage: deploy
     jobs: 
     - job:
-      dependOn: webinfradeploy
+      depensdOn: webinfradeploy
       steps:
         # download the artifact drop from the previous job
         - task: DownloadPipelineArtifact@2
