@@ -46,20 +46,20 @@ stages:
             artifactName: 'webappartifact'  
 
         # deploy to Azure Web App staging
-        # - task: AzureWebApp@1
-        #   inputs:
-        #     azureSubscription: 'svc-connection'
-        #     appType: 'webApp'
-        #     appName: 'samplewebapp89'         
-        #     package: '$(Build.ArtifactStagingDirectory)/**/*.zip'        
-
-  - stage: deploy
-    jobs: 
-    - job:
-      steps:
         - task: AzureWebApp@1
           inputs:
-            azureSubscription: 'svc-connection'
+            azureSubscription: 'XXXXXXXX'
             appType: 'webApp'
             appName: 'samplewebapp89'         
-            package: '$(Build.ArtifactStagingDirectory)/**/*.zip' 
+            package: '$(Build.ArtifactStagingDirectory)/**/*.zip'        
+
+  # - stage: deploy
+  #   jobs: 
+  #   - job:
+  #     steps:
+  #       - task: AzureWebApp@1
+  #         inputs:
+  #           azureSubscription: 'XXXXXXXXXXXXXXX'
+  #           appType: 'webApp'
+  #           appName: 'samplewebapp89'         
+  #           package: '$(Build.ArtifactStagingDirectory)/**/*.zip' 
