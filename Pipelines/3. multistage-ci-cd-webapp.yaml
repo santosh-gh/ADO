@@ -67,10 +67,6 @@ stages:
               echo "Structure of work folder of this pipeline:"
               tree $(Build.ArtifactStagingDirectory)
 
-  - stage: deploy
-    jobs: 
-    - job:
-      steps:
         - task: AzureWebApp@1
           displayName: Azure Web App Deploy
           inputs:
@@ -78,3 +74,15 @@ stages:
             appType: 'webApp'
             appName: 'samplewebapp89'
             package: '$(Build.ArtifactStagingDirectory)\webappartifact\*.zip'
+
+  # - stage: deploy
+  #   jobs: 
+  #   - job:
+  #     steps:
+  #       - task: AzureWebApp@1
+  #         displayName: Azure Web App Deploy
+  #         inputs:
+  #           azureSubscription: 'svc-connection'
+  #           appType: 'webApp'
+  #           appName: 'samplewebapp89'
+  #           package: '$(Build.ArtifactStagingDirectory)\webappartifact\*.zip'
