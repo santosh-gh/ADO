@@ -10,49 +10,51 @@ variables:
 stages:
   - stage: build
     jobs: 
-    - steps:
-      - task: UseDotNet@2
-        displayName: 'Install .NET Core SDK'
-        inputs:
-          version: 6.x
-          performMultiLevelLookup: true
-          includePreviewVersions: true # Required for preview versions
+      - job:
+          steps:
+          - task: UseDotNet@2
+            displayName: 'Install .NET Core SDK'
+            inputs:
+              version: 6.x
+              performMultiLevelLookup: true
+              includePreviewVersions: true # Required for preview versions
 
-      - task: DotNetCoreCLI@2
-        inputs:
-          command: 'restore'
-          projects: '**/*.csproj'
-          feedsToUse: 'select'
-          
-      - task: DotNetCoreCLI@2
-        displayName: 'dotnet build $(buildConfiguration)'
-        inputs:
-          command: 'build'
-          projects: '**/*.csproj'
-          arguments: '--configuration $(buildConfiguration)'
+          - task: DotNetCoreCLI@2
+            inputs:
+              command: 'restore'
+              projects: '**/*.csproj'
+              feedsToUse: 'select'
+              
+          - task: DotNetCoreCLI@2
+            displayName: 'dotnet build $(buildConfiguration)'
+            inputs:
+              command: 'build'
+              projects: '**/*.csproj'
+              arguments: '--configuration $(buildConfiguration)'
 
-      - task: DotNetCoreCLI@2
-        inputs:
-          command: publish
-          publishWebProjects: True
-          arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-          zipAfterPublish: True
+          - task: DotNetCoreCLI@2
+            inputs:
+              command: publish
+              publishWebProjects: True
+              arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+              zipAfterPublish: True
 
-      # this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
-      - task: PublishPipelineArtifact@1
-        inputs:
-          targetPath: '$(Build.ArtifactStagingDirectory)' 
-          artifactName: 'webappartifact'
+          # this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: '$(Build.ArtifactStagingDirectory)' 
+              artifactName: 'webappartifact'
 
     
 
   - stage: deploy
     jobs: 
-    steps:
-      - task: AzureWebApp@1
-        displayName: Azure Web App Deploy
-        inputs:
-          azureSubscription: 'svc-connection'
-          appType: 'webApp'
-          appName: 'samplewebapp89'
-          package: '$(Build.ArtifactStagingDirectory)/webappartifact/src.zip'
+    - job:
+        steps:
+          - task: AzureWebApp@1
+            displayName: Azure Web App Deploy
+            inputs:
+              azureSubscription: 'svc-connection'
+              appType: 'webApp'
+              appName: 'samplewebapp89'
+              package: '$(Build.ArtifactStagingDirectory)/webappartifact/src.zip'
