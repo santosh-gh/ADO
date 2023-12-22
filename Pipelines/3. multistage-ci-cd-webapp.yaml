@@ -46,43 +46,20 @@ stages:
             artifactName: 'webappartifact'  
 
         # deploy to Azure Web App staging
+        # - task: AzureWebApp@1
+        #   inputs:
+        #     azureSubscription: 'svc-connection'
+        #     appType: 'webApp'
+        #     appName: 'samplewebapp89'         
+        #     package: '$(Build.ArtifactStagingDirectory)/**/*.zip'        
+
+  - stage: deploy
+    jobs: 
+    - job:
+      steps:
         - task: AzureWebApp@1
           inputs:
             azureSubscription: 'svc-connection'
             appType: 'webApp'
             appName: 'samplewebapp89'         
-            package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
-
-        - task: CmdLine@2
-          displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
-          inputs:
-            script: |         
-              echo "Build.ArtifactStagingDirectory:" 
-              echo "$(Build.ArtifactStagingDirectory)"
-    
-              echo "Build.BinariesDirectory:" 
-              echo "$(Build.BinariesDirectory)"
-    
-              echo "Build.SourcesDirectory:"
-              echo "$(Build.SourcesDirectory)"
-
-              echo  "System.DefaultWorkingDirectory:"
-              echo  "$(System.DefaultWorkingDirectory)"
-
-              echo  "Pipeline.Workspace:"
-              echo  "$(Pipeline.Workspace)"
-
-              echo "Structure of work folder of this pipeline:"
-              tree $(Build.ArtifactStagingDirectory)
-              
-  # - stage: deploy
-  #   jobs: 
-  #   - job:
-  #     steps:
-  #       - task: AzureWebApp@1
-  #         displayName: Azure Web App Deploy
-  #         inputs:
-  #           azureSubscription: 'svc-connection'
-  #           appType: 'webApp'
-  #           appName: 'samplewebapp89'
-  #           package: '$(Build.ArtifactStagingDirectory)\webappartifact\*.zip'
+            package: '$(Build.ArtifactStagingDirectory)/**/*.zip' 
