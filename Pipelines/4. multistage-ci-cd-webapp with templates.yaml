@@ -14,7 +14,8 @@ stages:
   - stage: Build
     jobs: 
       - template: Templates/build.yaml
-        parameters: buildConfiguration ${{ variables.buildConfiguration }}
+        parameters: 
+          buildConfiguration: ${{ variables.buildConfiguration }}
         
 
   # - stage: Deploy
