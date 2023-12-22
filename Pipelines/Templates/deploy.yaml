@@ -5,13 +5,13 @@
         - task: DownloadPipelineArtifact@2
           inputs:
             source: 'current'
-            artifact:  ${{ patameter.ArtifactName }}
+            artifact:  ${{ parameters.ArtifactName }}
             path: '$(Pipeline.Workspace)'
 
         - task: AzureWebApp@1
           inputs:
-            azureSubscription: ${{ patameter.ServiceConnection }}
+            azureSubscription: ${{ parameters.ServiceConnection }}
             appType: 'webApp'
-            appName:  ${{ patameter.ArtifactName }}
-            resourceGroupName: ${{ patameter.ResourceGroupName }}
+            appName:  ${{ parameters.ArtifactName }}
+            resourceGroupName: ${{ parameters.ResourceGroupName }}
             package: '$(Pipeline.Workspace)/**/*.zip'
