@@ -55,7 +55,7 @@ stages:
 
   - stage: InfraDeploy
     jobs: 
-    - job:
+    - job: webinfradeploy
       steps:
         - task: AzurePowerShell@5
           inputs:
@@ -65,13 +65,22 @@ stages:
             azurePowerShellVersion: latestVersion
             pwsh: true  
 
-  # - stage: deploy
-  #   jobs: 
-  #   - job:
-  #     steps:
-  #       - task: AzureWebApp@1
-  #         inputs:
-  #           azureSubscription: 'XXXXXXXXXXXXXXX'
-  #           appType: 'webApp'
-  #           appName: 'samplewebapp89'         
-  #           package: '$(Build.ArtifactStagingDirectory)/**/*.zip' 
+  - stage: deploy
+    jobs: 
+    - job:
+      dependOn: webinfradeploy
+      steps:
+        # download the artifact drop from the previous job
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            source: 'current'
+            artifact: 'webappartifact'
+            path: '$(Pipeline.Workspace)'
+
+        - task: AzureWebApp@1
+          inputs:
+            azureSubscription: 'svc-connection'
+            appType: 'webApp'
+            appName: 'samplewebapp89'
+            resourceGroupName: 'test-rg'
+            package: '$(Pipeline.Workspace)/**/*.zip'
