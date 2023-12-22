@@ -46,12 +46,24 @@ stages:
             artifactName: 'webappartifact'  
 
         # deploy to Azure Web App staging
-        - task: AzureWebApp@1
+        # - task: AzureWebApp@1
+        #   inputs:
+        #     azureSubscription: 'XXXXXXXX'
+        #     appType: 'webApp'
+        #     appName: 'samplewebapp89'         
+        #     package: '$(Build.ArtifactStagingDirectory)/**/*.zip'        
+
+  - stage: InfraDeploy
+    jobs: 
+    - job:
+      steps:
+        - task: AzurePowerShell@5
           inputs:
-            azureSubscription: 'XXXXXXXX'
-            appType: 'webApp'
-            appName: 'samplewebapp89'         
-            package: '$(Build.ArtifactStagingDirectory)/**/*.zip'        
+            azureSubscription: 'svc-connection'
+            scriptType: filePath
+            scriptPath: 'Pipelines\Templates\PowerShell\webapp.ps1'           
+            azurePowerShellVersion: latestVersion
+            pwsh: true  
 
   # - stage: deploy
   #   jobs: 
