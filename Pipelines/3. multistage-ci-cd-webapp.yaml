@@ -5,7 +5,10 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  buildConfiguration: 'Release'
+- name: buildConfiguration
+  value: 'Release'
+- group: webapp-variables                   # name of a variable group
+
 
 stages:
   - stage: Build
@@ -51,7 +54,7 @@ stages:
   #     steps:
   #       - task: AzurePowerShell@5
   #         inputs:
-  #           azureSubscription: 'svc-connection'
+  #           azureSubscription: $(ServiceConnection)
   #           scriptType: filePath
   #           scriptPath: 'Pipelines\Templates\PowerShell\webapp.ps1'           
   #           azurePowerShellVersion: latestVersion
@@ -70,7 +73,7 @@ stages:
 
         - task: AzureWebApp@1
           inputs:
-            azureSubscription: 'svc-connection'
+            azureSubscription: $(ServiceConnection)
             appType: 'webApp'
             appName: 'samplewebapp89'
             resourceGroupName: 'test-rg'
