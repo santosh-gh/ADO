@@ -44,6 +44,7 @@ stages:
           inputs:
             targetPath: '$(Build.ArtifactStagingDirectory)' 
             artifactName: 'webappartifact'  
+
         - task: CmdLine@2
           displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
           inputs:
@@ -64,7 +65,7 @@ stages:
               echo  "$(Pipeline.Workspace)"
 
               echo "Structure of work folder of this pipeline:"
-              tree $(Agent.WorkFolder)/1  
+              tree $(Build.ArtifactStagingDirectory)
 
   - stage: deploy
     jobs: 
