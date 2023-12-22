@@ -73,7 +73,7 @@ stages:
             azureSubscription: 'svc-connection'
             appType: 'webApp'
             appName: 'samplewebapp89'
-            package: '$(Build.ArtifactStagingDirectory)/*.zip'
+            package: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
   # - stage: deploy
   #   jobs: 
