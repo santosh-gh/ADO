@@ -1,10 +1,10 @@
 jobs: 
   - job: build
-    pool:
-        vmImage: 'windows-latest'
+    # pool:
+    #     vmImage: 'windows-latest'
     steps:
       - task: UseDotNet@2
-        #displayName: 'Install .NET Core SDK'
+        displayName: 'Install .NET Core SDK'
         inputs:
           version: 6.x
           performMultiLevelLookup: true
