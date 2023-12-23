@@ -7,8 +7,7 @@ pool:
 variables:
 - name: buildConfiguration
   value: 'Release'
-- group: webapp-variables            
-
+- group: webapp-variables
 
 stages:
   - stage: Build
@@ -16,8 +15,7 @@ stages:
       - template: Templates/build.yaml
         parameters: 
           buildConfiguration: ${{ variables.buildConfiguration }}
-          ArtifactName: 'webappartifact'
-        
+          ArtifactName: 'webappartifact'        
 
   - stage: Infra
     jobs: 
