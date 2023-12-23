@@ -1,6 +1,6 @@
 pr:
 - main
-- feature/*
+- feature
 
 resources:
   - repo: self
