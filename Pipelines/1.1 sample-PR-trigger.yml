@@ -1,6 +1,12 @@
-pr:
-- main
+# pr:
+# - main
 
+pr:
+  branches:
+    include:
+    - main
+    - feature
+    
 resources:
   - repo: self
 
