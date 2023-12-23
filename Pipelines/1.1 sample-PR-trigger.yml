@@ -1,11 +1,11 @@
 # pr:
 # - main
 
-pr:
-  branches:
-    include:
-    - main
-    - feature
+# pr:
+#   branches:
+#     include:
+#     - main
+#     - feature
     
 resources:
   - repo: self
