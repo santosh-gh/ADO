@@ -1,9 +1,5 @@
-trigger: 
-  - none
-
-variables:
-  - name: task
-    value: "Test Pipeline tasks:"
+pr:
+- main
 
 resources:
   - repo: self
@@ -16,17 +12,9 @@ stages:
     jobs:
       - job: Job1
         steps:
-          - script: echo Hello, $(task)
-            displayName: 'Run a one-line script'   
-
-  - stage: Stage2
-    jobs:
-      - job: Job1
-        steps:
           - task: CmdLine@2
             displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
             inputs:
               script: | 
-                echo "Structure of work folder of this pipeline:"
-                tree $(Agent.WorkFolder)/1
-                cat Pipelines/Templates/PowerShell/test.ps1
+                echo "Print the contents of the file:"
+                cat Pipelines/Templates/PowerShell/sample.txt
