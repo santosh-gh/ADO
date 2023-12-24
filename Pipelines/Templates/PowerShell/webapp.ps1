@@ -26,7 +26,7 @@ $password = "Testdb@2023"
 $serverName = "server-sql-08976"
 
 # The sample database name
-$databaseName = "mySampleDatabase"
+$databaseName = "BookStore"
 
 # The ip address range that you want to allow to access your server
 $startIp = "0.0.0.0"

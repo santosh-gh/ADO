@@ -110,8 +110,8 @@ stages:
         inputs:
           command: custom
           custom: 'ef'
-          arguments: 'migrations script --output $(sqlFile) --idempotent --project $(Build.SourcesDirectory)/src/BookStore.API/BookStore.API.csproj --context TodoApiDbContext'
-         
+          arguments: 'migrations script --output $(sqlFile) --idempotent --project $(Build.SourcesDirectory)/src/BookStore.API/BookStore.API.csproj --context BookStoreDbContext'
+          
       - task: DotNetCoreCLI@2
         displayName: Publish
         inputs:
