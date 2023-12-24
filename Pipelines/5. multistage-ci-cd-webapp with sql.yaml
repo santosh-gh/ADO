@@ -17,10 +17,12 @@ variables:
   dotNetFramework: 'net6.0'
   dotNetVersion: '6.0.x'
   targetRuntime: 'linux-x64'
+ 
 
 stages:
 - stage: Build
-
+  variables:
+    - group: bookstore
   jobs:
     - job: build
      
@@ -50,8 +52,6 @@ stages:
   displayName: 'Deploy to Dev'
   dependsOn: [ Build ]
   condition: succeeded()
-  variables:
-  - group: bookstore
   
   jobs:
     - job:  DeployToDevelopment
