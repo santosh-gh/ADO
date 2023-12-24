@@ -8,15 +8,11 @@ $ResourceGroupName="test-rg"
 #$resourceGroup = New-AzResourceGroup -Name $ResourceGroupName -Location $Location
 
 # Create an App Service plan in Free tier.
-New-AzAppServicePlan -Name $AppServicePlan -Location $Location -ResourceGroupName $ResourceGroupName -Tier Free
+#New-AzAppServicePlan -Name $AppServicePlan -Location $Location -ResourceGroupName $ResourceGroupName -Tier Free
 
 # Create a web app.
-New-AzWebApp -Name $WebAppName -Location $Location -AppServicePlan $AppServicePlan -ResourceGroupName $ResourceGroupName
+#New-AzWebApp -Name $WebAppName -Location $Location -AppServicePlan $AppServicePlan -ResourceGroupName $ResourceGroupName
 
-
-# Connect-AzAccount
-# The SubscriptionId in which to create these objects
-$SubscriptionId = 'b798c28b-e334-4ecf-b338-ec314ced3616'
 
 # Set an admin login and password for your server
 $adminSqlLogin = "SqlAdmin"
@@ -31,9 +27,6 @@ $databaseName = "BookStore"
 # The ip address range that you want to allow to access your server
 $startIp = "0.0.0.0"
 $endIp = "0.0.0.0"
-
-# Set subscription 
-#Set-AzContext -SubscriptionId $subscriptionId 
 
 # Create a resource group
 #$resourceGroup = New-AzResourceGroup -Name $resourceGroupName -Location $location
