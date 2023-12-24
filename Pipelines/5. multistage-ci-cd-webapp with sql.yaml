@@ -47,96 +47,96 @@ stages:
           projects: '**/*Tests/*.csproj'
           arguments: '--configuration $(buildConfiguration)'        
         
-# - stage: Development
-#   displayName: 'Deploy to Dev'
-#   dependsOn: [ Build ]
-#   condition: succeeded()
-#   variables:
-#   - group: bookstore
+- stage: Development
+  displayName: 'Deploy to Dev'
+  dependsOn: [ Build ]
+  condition: succeeded()
+  variables:
+  - group: bookstore
   
-#   jobs:
-#     - job:  DeployToDevelopment
-#       displayName: 'Deploy Development'
-#       variables:
-#         sqlFile: '$(Build.SourcesDirectory)/SQL/sqlscript.sql'
+  jobs:
+    - job:  DeployToDevelopment
+      displayName: 'Deploy Development'
+      variables:
+        sqlFile: '$(Build.SourcesDirectory)/SQL/sqlscript.sql'
         
-#       steps:
+      steps:
 
-#       # Publish it as .NET 6 self-contained application for linux runtime
-#       - task: DotNetCoreCLI@2
-#         inputs:
-#           command: publish
-#           publishWebProjects: True
-#           arguments: '--configuration $(BuildConfiguration) --framework $(dotNetFramework) --runtime $(targetRuntime) --self-contained --output $(Build.ArtifactStagingDirectory)'
-#           zipAfterPublish: True
+      # Publish it as .NET 6 self-contained application for linux runtime
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: publish
+          publishWebProjects: True
+          arguments: '--configuration $(BuildConfiguration) --framework $(dotNetFramework) --runtime $(targetRuntime) --self-contained --output $(Build.ArtifactStagingDirectory)'
+          zipAfterPublish: True
 
-#       # Package the file and uploads them as an artifact of the build
-#       - task: PublishPipelineArtifact@1
-#         inputs:
-#           targetPath: '$(Build.ArtifactStagingDirectory)'
-#           artifact: 'bookstore'
-#           publishLocation: 'pipeline'
+      # Package the file and uploads them as an artifact of the build
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(Build.ArtifactStagingDirectory)'
+          artifact: 'bookstore'
+          publishLocation: 'pipeline'
 
-#       # Publish it to the Azure App Service
-#       - task: AzureWebApp@1
-#         inputs:
-#           azureSubscription: $(azureSubscription)
-#           appType: 'webAppLinux'
-#           appName: 'Inform-your-app-service'
-#           package: '$(Pipeline.Workspace)/**/*.zip'
+      # Publish it to the Azure App Service
+      - task: AzureWebApp@1
+        inputs:
+          azureSubscription: $(azureSubscription)
+          appType: 'webAppLinux'
+          appName: 'Inform-your-app-service'
+          package: '$(Pipeline.Workspace)/**/*.zip'
 
-#       # To install a tool for local access only, it has to be added to a manifest file;
-#       - task: DotNetCoreCLI@2
-#         displayName: New Manifest for tool
-#         inputs:
-#           command: custom
-#           custom: 'new '
-#           arguments: tool-manifest
+      # To install a tool for local access only, it has to be added to a manifest file;
+      - task: DotNetCoreCLI@2
+        displayName: New Manifest for tool
+        inputs:
+          command: custom
+          custom: 'new '
+          arguments: tool-manifest
 
-#       # Install EF Core   
-#       - task: DotNetCoreCLI@2
-#         displayName: Install EF Tool
-#         inputs:
-#           command: custom
-#           custom: 'tool'
-#           arguments: 'install --global dotnet-ef --version 6.0.2'
+      # Install EF Core   
+      - task: DotNetCoreCLI@2
+        displayName: Install EF Tool
+        inputs:
+          command: custom
+          custom: 'tool'
+          arguments: 'install --global dotnet-ef --version 6.0.2'
 
-#       # Create SQL Script
-#       - task: DotNetCoreCLI@2
-#         displayName: Create SQL Scripts
-#         inputs:
-#           command: custom
-#           custom: 'ef '
-#           arguments: 'migrations script --output $(sqlFile) --idempotent --project $(Build.SourcesDirectory)/src/BookStore.API/BookStore.API.csproj --context BookStoreDbContext'
+      # Create SQL Script
+      - task: DotNetCoreCLI@2
+        displayName: Create SQL Scripts
+        inputs:
+          command: custom
+          custom: 'ef '
+          arguments: 'migrations script --output $(sqlFile) --idempotent --project $(Build.SourcesDirectory)/src/BookStore.API/BookStore.API.csproj --context BookStoreDbContext'
 
-#       - task: DotNetCoreCLI@2
-#         displayName: Publish
-#         inputs:
-#           command: publish
-#           publishWebProjects: True
-#           projects: $(BuildParameters.RestoreBuildProjects)
-#           arguments: --configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)
-#           zipAfterPublish: True
+      - task: DotNetCoreCLI@2
+        displayName: Publish
+        inputs:
+          command: publish
+          publishWebProjects: True
+          projects: $(BuildParameters.RestoreBuildProjects)
+          arguments: --configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)
+          zipAfterPublish: True
 
-#       - task: PublishBuildArtifacts@1
-#         displayName: 'Publish Artifact: SQLScripts'
-#         inputs:
-#           PathtoPublish: $(sqlFile)
-#           ArtifactName: SQLScripts
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact: SQLScripts'
+        inputs:
+          PathtoPublish: $(sqlFile)
+          ArtifactName: SQLScripts
 
-#       # Execute SQL Scripts (Windows environment)
-#       - task: SqlAzureDacpacDeployment@1
-#         displayName: Run migration script
-#         inputs:
-#           azureSubscription: $(azureSubscription)
-#           AuthenticationType: 'server'
-#           ServerName: '$(SqlServer-Name)'
-#           DatabaseName: 'BookStore'
-#           SqlUsername: '$(SqlServer-Username)'
-#           SqlPassword: '$(SqlServer-Password)'
-#           deployType: 'SqlTask'
-#           SqlFile: '$(sqlFile)'
-#           IpDetectionMethod: 'AutoDetect'
+      # Execute SQL Scripts (Windows environment)
+      - task: SqlAzureDacpacDeployment@1
+        displayName: Run migration script
+        inputs:
+          azureSubscription: $(azureSubscription)
+          AuthenticationType: 'server'
+          ServerName: '$(SqlServer-Name)'
+          DatabaseName: 'BookStore'
+          SqlUsername: '$(SqlServer-Username)'
+          SqlPassword: '$(SqlServer-Password)'
+          deployType: 'SqlTask'
+          SqlFile: '$(sqlFile)'
+          IpDetectionMethod: 'AutoDetect'
 
 
-# # https://henriquesd.medium.com/deploying-a-net-6-web-api-and-a-sql-database-with-azure-pipelines-585e2e18a463
+# https://henriquesd.medium.com/deploying-a-net-6-web-api-and-a-sql-database-with-azure-pipelines-585e2e18a463
