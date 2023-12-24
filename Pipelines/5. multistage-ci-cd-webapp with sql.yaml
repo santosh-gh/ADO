@@ -109,7 +109,7 @@ stages:
         displayName: Create SQL Scripts
         inputs:
           command: custom
-          custom: 'ef '
+          custom: 'ef'
           arguments: 'migrations script --output $(sqlFile) --idempotent --project $(Build.SourcesDirectory)/src/BookStore.API/BookStore.API.csproj --context BookStoreDbContext'
 
       - task: DotNetCoreCLI@2
