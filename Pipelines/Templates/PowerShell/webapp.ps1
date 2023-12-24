@@ -23,7 +23,7 @@ $adminSqlLogin = "SqlAdmin"
 $password = "Testdb@2023"
 
 # Set server name - the logical server name has to be unique in the system
-$serverName = "server-$(Get-Random)"
+$serverName = "server-sql-08976"
 
 # The sample database name
 $databaseName = "mySampleDatabase"
@@ -55,4 +55,3 @@ $database = New-AzSqlDatabase  -ResourceGroupName $resourceGroupName `
     -DatabaseName $databaseName `
     -RequestedServiceObjectiveName "S0" `
     -SampleName "AdventureWorksLT"
-

@@ -17,7 +17,6 @@ variables:
   dotNetFramework: 'net6.0'
   dotNetVersion: '6.0.x'
   targetRuntime: 'linux-x64'
-  azureSubscription: 'Inform-your-subscription'
 
 stages:
 - stage: Build
@@ -80,9 +79,9 @@ stages:
       # Publish it to the Azure App Service
       - task: AzureWebApp@1
         inputs:
-          azureSubscription: $(azureSubscription)
+          azureSubscription: $(ServiceConnection)
           appType: 'webAppLinux'
-          appName: 'Inform-your-app-service'
+          appName: $(WebAppName)
           package: '$(Pipeline.Workspace)/**/*.zip'
 
       # To install a tool for local access only, it has to be added to a manifest file;
@@ -128,7 +127,7 @@ stages:
       - task: SqlAzureDacpacDeployment@1
         displayName: Run migration script
         inputs:
-          azureSubscription: $(azureSubscription)
+          azureSubscription: $(ServiceConnection)
           AuthenticationType: 'server'
           ServerName: '$(SqlServer-Name)'
           DatabaseName: 'BookStore'
@@ -137,6 +136,5 @@ stages:
           deployType: 'SqlTask'
           SqlFile: '$(sqlFile)'
           IpDetectionMethod: 'AutoDetect'
-
 
 # https://henriquesd.medium.com/deploying-a-net-6-web-api-and-a-sql-database-with-azure-pipelines-585e2e18a463
