@@ -10,22 +10,26 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-  package-version: '1.2.6'
-  dotNetFramework: 'net6.0'
-  dotNetVersion: '6.0.x'
-  targetRuntime: 'linux-x64'
- 
+  - name: solution
+    value: '**/*.sln'
+  - name: buildPlatform
+    value: 'Any CPU'
+  - name: buildConfiguration
+    value: 'Release'
+  - name: package-version
+    value: '1.2.6'
+  - name: dotNetFramework
+    value: 'net6.0'
+  - name: dotNetVersion
+    value: '6.0.x'
+  - name: targetRuntime
+    value: 'linux-x64'
+  - group: bookstore
 
 stages:
-- stage: Build
-  variables:
-    - group: bookstore
+- stage: Build    
   jobs:
-    - job: build
-     
+    - job: build     
       steps:
       - task: UseDotNet@2
         displayName: 'Use .NET 6 sdk'
