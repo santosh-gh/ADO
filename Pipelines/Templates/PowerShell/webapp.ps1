@@ -8,10 +8,10 @@ $ResourceGroupName="test-rg"
 #$resourceGroup = New-AzResourceGroup -Name $ResourceGroupName -Location $Location
 
 # Create an App Service plan in Free tier.
-#New-AzAppServicePlan -Name $AppServicePlan -Location $Location -ResourceGroupName $ResourceGroupName -Tier Free
+New-AzAppServicePlan -Name $AppServicePlan -Location $Location -ResourceGroupName $ResourceGroupName -Tier Free
 
 # Create a web app.
-#New-AzWebApp -Name $WebAppName -Location $Location -AppServicePlan $AppServicePlan -ResourceGroupName $ResourceGroupName
+New-AzWebApp -Name $WebAppName -Location $Location -AppServicePlan $AppServicePlan -ResourceGroupName $ResourceGroupName
 
 
 # Set an admin login and password for your server
@@ -27,9 +27,6 @@ $databaseName = "BookStore"
 # The ip address range that you want to allow to access your server
 $startIp = "0.0.0.0"
 $endIp = "0.0.0.0"
-
-# Create a resource group
-#$resourceGroup = New-AzResourceGroup -Name $resourceGroupName -Location $location
 
 # Create a server with a system wide unique server name
 $server = New-AzSqlServer -ResourceGroupName $resourceGroupName `
