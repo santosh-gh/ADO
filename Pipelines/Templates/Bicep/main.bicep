@@ -1,4 +1,3 @@
-
 param location string = resourceGroup().location
 
 var virtualNetwork = {

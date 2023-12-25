@@ -24,7 +24,7 @@ stages :
             inputs:
               targetType: inline
               script: |
-                az bicep build --file $(System.DefaultWorkingDirectory)/Templates/Bicep/main.bicep
+                az bicep build --file $(System.DefaultWorkingDirectory)/Pipelines/Templates/Bicep/main.bicep
 
           - task: AzureCLI@2
             displayName: 'Deploy Bicep Configuration'
@@ -35,5 +35,5 @@ stages :
               addSpnToEnvironment: true
               inlineScript: |
                 #!/bin/bash
-                az deployment group create -f $(System.DefaultWorkingDirectory)/Templates/Bicep/main.json -g bicep-rg
+                az deployment group create -f $(System.DefaultWorkingDirectory)/Pipelines/Templates/Bicep/main.json -g bicep-rg
 
