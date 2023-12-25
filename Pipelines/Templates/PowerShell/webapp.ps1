@@ -45,3 +45,6 @@ $database = New-AzSqlDatabase  -ResourceGroupName $resourceGroupName `
     -DatabaseName $databaseName `
     -RequestedServiceObjectiveName "S0" `
     -SampleName "AdventureWorksLT"
+
+
+    Server=tcp:server-sql-08976.database.windows.net,1433;Initial Catalog=BookStore;Persist Security Info=False;User ID=SqlAdmin;Password=Testdb@2023;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
