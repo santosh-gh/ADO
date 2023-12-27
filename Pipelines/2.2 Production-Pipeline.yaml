@@ -57,7 +57,7 @@ stages :
                   backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName}}
                   backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
                   backendAzureRmKey: ${{ variables.backendAzureRmKey}}
-                  workingDirectory: '$(System.DefaultWorkingDirectory)/ADO/Pipelines/Templates/terraform/'
+                  workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
 
               - task: TerraformTaskV1@0
                 displayName: 'plan'
