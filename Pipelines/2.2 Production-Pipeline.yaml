@@ -43,7 +43,10 @@ stages :
                   script: |         
                     echo "System.DefaultWorkingDirectory:" 
                     echo "$(System.DefaultWorkingDirectory)"
-                    
+
+                    echo "Structure of work folder of this pipeline:"
+                    tree $(System.DefaultWorkingDirectory)/1/s
+
               - task: TerraformTaskV1@0
                 displayName: 'init'
                 inputs:
