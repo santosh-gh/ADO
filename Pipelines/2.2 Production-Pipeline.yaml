@@ -21,10 +21,10 @@ parameters:
 - name: enviornment
   displayName: Environment to deploy
   type: string
-  default: Pipeline/Templates/vars/production/production.tfvars
+  default: Pipelines/Templates/vars/production/production.tfvars
   values:
-  - "Pipeline/Templates/vars/production/production.tfvars"
-  - "Pipeline/Templates/vars/develop/develop.tfvars"
+  - "Pipelines/Templates/vars/production/production.tfvars"
+  - "Pipelines/Templates/vars/develop/develop.tfvars"
 
 stages :        
   - stage: terraform_plan
