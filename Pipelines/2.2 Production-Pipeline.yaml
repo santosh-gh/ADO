@@ -6,7 +6,7 @@ pr: none
 
 variables:
 - name: terraformVersion
-  value: '0.13.4'
+  value: '1.6.0'
 - name: backendAzureRmResourceGroupName
   value: 'test-rg'
 - name: backendAzureRmStorageAccountName
@@ -37,7 +37,13 @@ stages :
                 displayName: 'install'
                 inputs:
                   terraformVersion: ${{ variables.terraformVersion}}
-
+              - task: CmdLine@2
+                displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
+                inputs:
+                  script: |         
+                    echo "System.DefaultWorkingDirectory:" 
+                    echo "$(System.DefaultWorkingDirectory)"
+                    
               - task: TerraformTaskV1@0
                 displayName: 'init'
                 inputs:
