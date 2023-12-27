@@ -9,9 +9,10 @@ data "azurerm_client_config" "current" {}
 
 terraform {
     backend "azurerm" {
-        resource_group_name = "test-rg"    
-        storage_account_name = "teststg8904"
-        container_name = "testcontainer"
+        resource_group_name     = "test-rg"    
+        storage_account_name    = "teststg8904"
+        container_name          = "testcontainer"
+        key                     = "terraform.tfstate"
     }
 }
 
