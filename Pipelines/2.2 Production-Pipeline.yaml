@@ -43,7 +43,7 @@ stages :
                 inputs:
                   provider: 'azurerm'
                   command: 'init'
-                  backendServiceArm: ${{ variables.ado-service-connection}}
+                  backendServiceArm: $(ado-service-connection)
                   backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName}}
                   backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName}}
                   backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
@@ -56,7 +56,7 @@ stages :
                   provider: 'azurerm'
                   command: 'plan'
                   commandOptions: '-input=false -var-file=${{ parameters.enviornment }}'
-                  environmentServiceNameAzureRM: ${{ variables.ado-service-connection}}
+                  environmentServiceNameAzureRM: $(ado-service-connection)
                   workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
               
               - task: ArchiveFiles@2
@@ -113,7 +113,7 @@ stages :
                 inputs:
                   provider: 'azurerm'
                   command: 'init'
-                  backendServiceArm: ${{ variables.ado-service-connection}}
+                  backendServiceArm: $(ado-service-connection)
                   backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName}}
                   backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName}}
                   backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
@@ -126,7 +126,7 @@ stages :
                   provider: 'azurerm'
                   command: 'plan'
                   commandOptions: '-input=false -var-file=${{ parameters.enviornment }}'
-                  environmentServiceNameAzureRM: ${{ variables.ado-service-connection}}
+                  environmentServiceNameAzureRM: $(ado-service-connection)
                   workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
 
               - task: TerraformTaskV1@0
@@ -135,5 +135,5 @@ stages :
                   provider: 'azurerm'
                   command: 'apply'
                   commandOptions: '-input=false -auto-approve -var-file=${{ parameters.enviornment }}'
-                  environmentServiceNameAzureRM: ${{ variables.ado-service-connection}}
+                  environmentServiceNameAzureRM: $(ado-service-connection)
                   workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
