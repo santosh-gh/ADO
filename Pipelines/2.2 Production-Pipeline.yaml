@@ -37,16 +37,7 @@ stages :
               - task: TerraformInstaller@0
                 displayName: 'install'
                 inputs:
-                  terraformVersion: ${{ variables.terraformVersion}}
-              - task: CmdLine@2
-                displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
-                inputs:
-                  script: |         
-                    echo "System.DefaultWorkingDirectory:" 
-                    echo "$(System.DefaultWorkingDirectory)"
-
-                    echo "Structure of work folder of this pipeline:"
-                    tree $(System.DefaultWorkingDirectory)
+                  terraformVersion: ${{ variables.terraformVersion}}              
          
               # Equivalent to terraform init but with a backend defined
               - task: TerraformTaskV2@2
@@ -69,8 +60,7 @@ stages :
                   command: 'plan'
                   workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
                   commandOptions: '-input=false -var-file=$(System.DefaultWorkingDirectory)/${{ parameters.enviornment }}'
-                  environmentServiceNameAzureRM: $(ServiceConnection)
-                 
+                  environmentServiceNameAzureRM: $(ServiceConnection)                 
               
               - task: ArchiveFiles@2
                 inputs:
@@ -141,14 +131,14 @@ stages :
                   backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName}}
                   backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
                   backendAzureRmKey: ${{ variables.backendAzureRmKey}}
-                  workingDirectory: '$(System.DefaultWorkingDirectory)Pipelines/Templates/terraform/'
+                  workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
     
               - task: TerraformTaskV2@0
                 displayName: 'plan'
                 inputs:
                   provider: 'azurerm'
                   command: 'plan'
-                  commandOptions: '-input=false -var-file=${{ parameters.enviornment }}'
+                  commandOptions: '-input=false -var-file=$(System.DefaultWorkingDirectory)/${{ parameters.enviornment }}'
                   environmentServiceNameAzureRM: $(ServiceConnection)
                   workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
 
@@ -157,6 +147,6 @@ stages :
                 inputs:
                   provider: 'azurerm'
                   command: 'apply'
-                  commandOptions: '-input=false -auto-approve -var-file=${{ parameters.enviornment }}'
+                  commandOptions: '-input=false -auto-approve -var-file=$(System.DefaultWorkingDirectory)/${{ parameters.enviornment }}'
                   environmentServiceNameAzureRM: $(ServiceConnection)
                   workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
