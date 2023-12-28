@@ -47,19 +47,7 @@ stages :
 
                     echo "Structure of work folder of this pipeline:"
                     tree $(System.DefaultWorkingDirectory)
-
-              # - task: TerraformTaskV1@0
-              #   displayName: 'init'
-              #   inputs:
-              #     provider: 'azurerm'
-              #     command: 'init'
-              #     backendServiceArm: $(ServiceConnection)
-              #     backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName}}
-              #     backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName}}
-              #     backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
-              #     backendAzureRmKey: ${{ variables.backendAzureRmKey}}
-              #     workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
-
+         
               # Equivalent to terraform init but with a backend defined
               - task: TerraformTaskV2@2
                 displayName: 'init'
@@ -73,12 +61,23 @@ stages :
                   backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
                   backendAzureRmKey: ${{ variables.backendAzureRmKey}}
 
-              - task: TerraformTaskV1@0
+              # # Equivalent to terraform plan -out main.tfplan
+              # - task: TerraformTaskV2@2
+              #   displayName: 'plan'
+              #   inputs:
+              #     provider: 'azurerm'
+              #     command: 'plan'
+              #     workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
+              #     commandOptions: -out 'main.tfplan' -var="subscriptionId=$(subscriptionId)" -var="service_principal_id=$(service_principal_id)"
+              #     environmentServiceNameAzureRM: 'Service-Principal-Based-ServiceConnection'
+
+
+              - task: TerraformTaskV2@0
                 displayName: 'plan'
                 inputs:
                   provider: 'azurerm'
                   command: 'plan'
-                  commandOptions: '-input=false -var-file=${{ parameters.enviornment }}'
+                  commandOptions: '-input=false -var-file=$(System.DefaultWorkingDirectory)/${{ parameters.enviornment }}'
                   environmentServiceNameAzureRM: $(ServiceConnection)
                   workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
               
