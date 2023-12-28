@@ -105,62 +105,62 @@ stages :
       strategy:
        runOnce:
         deploy:
-        steps:
-          - checkout: none
+          steps:
+            - checkout: none
 
-          - task: DownloadBuildArtifacts@0
-            inputs:
-              artifactName: '$(Build.BuildId)-tfplan'
-              displayName: 'Download Plan Artifact'
+            - task: DownloadBuildArtifacts@0
+              inputs:
+                artifactName: '$(Build.BuildId)-tfplan'
+                displayName: 'Download Plan Artifact'
 
-          - task: ExtractFiles@1
-            inputs:
-              archiveFilePatterns: '$(System.ArtifactsDirectory)/$(Build.BuildId)-tfplan/$(Build.BuildId).tgz'
-              destinationFolder: '$(System.DefaultWorkingDirectory)/'
-              cleanDestinationFolder: false
-              displayName: 'Extract Terraform Plan Artifact'
+            - task: ExtractFiles@1
+              inputs:
+                archiveFilePatterns: '$(System.ArtifactsDirectory)/$(Build.BuildId)-tfplan/$(Build.BuildId).tgz'
+                destinationFolder: '$(System.DefaultWorkingDirectory)/'
+                cleanDestinationFolder: false
+                displayName: 'Extract Terraform Plan Artifact'
 
-          - task: CmdLine@2
-            displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
-            inputs:
-              script: |         
-                echo "System.DefaultWorkingDirectory:" 
-                echo "$(System.DefaultWorkingDirectory)"
+            - task: CmdLine@2
+              displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
+              inputs:
+                script: |         
+                  echo "System.DefaultWorkingDirectory:" 
+                  echo "$(System.DefaultWorkingDirectory)"
 
-                echo "Structure of work folder of this pipeline:"
-                tree $(System.DefaultWorkingDirectory)
+                  echo "Structure of work folder of this pipeline:"
+                  tree $(System.DefaultWorkingDirectory)
 
-          - task: TerraformInstaller@0
-            displayName: 'install'
-            inputs:
-              terraformVersion: ${{ variables.terraformVersion}}
+            - task: TerraformInstaller@0
+              displayName: 'install'
+              inputs:
+                terraformVersion: ${{ variables.terraformVersion}}
 
-          - task: TerraformTaskV2@2
-            displayName: 'init'
-            inputs:
-              provider: 'azurerm'
-              command: 'init'             
-              workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
-              backendServiceArm: $(ServiceConnection)
-              backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName}}
-              backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName}}
-              backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
-              backendAzureRmKey: ${{ variables.backendAzureRmKey}}
-              
-          - task: TerraformTaskV2@2
-            displayName: 'plan'
-            inputs:
-              provider: 'azurerm'
-              command: 'plan'
-              commandOptions: '-input=false -var-file=$(System.DefaultWorkingDirectory)/${{ parameters.enviornment }}'
-              environmentServiceNameAzureRM: $(ServiceConnection)
-              workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
+            - task: TerraformTaskV2@2
+              displayName: 'init'
+              inputs:
+                provider: 'azurerm'
+                command: 'init'             
+                workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
+                backendServiceArm: $(ServiceConnection)
+                backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName}}
+                backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName}}
+                backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
+                backendAzureRmKey: ${{ variables.backendAzureRmKey}}
+                
+            - task: TerraformTaskV2@2
+              displayName: 'plan'
+              inputs:
+                provider: 'azurerm'
+                command: 'plan'
+                commandOptions: '-input=false -var-file=$(System.DefaultWorkingDirectory)/${{ parameters.enviornment }}'
+                environmentServiceNameAzureRM: $(ServiceConnection)
+                workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
 
-          - task: TerraformTaskV2@2
-            displayName: 'apply'
-            inputs:
-              provider: 'azurerm'
-              command: 'apply'
-              commandOptions: '-input=false -auto-approve -var-file=$(System.DefaultWorkingDirectory)/${{ parameters.enviornment }}'
-              environmentServiceNameAzureRM: $(ServiceConnection)
-              workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
+            - task: TerraformTaskV2@2
+              displayName: 'apply'
+              inputs:
+                provider: 'azurerm'
+                command: 'apply'
+                commandOptions: '-input=false -auto-approve -var-file=$(System.DefaultWorkingDirectory)/${{ parameters.enviornment }}'
+                environmentServiceNameAzureRM: $(ServiceConnection)
+                workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
