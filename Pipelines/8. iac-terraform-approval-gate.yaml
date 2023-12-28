@@ -67,7 +67,7 @@ stages :
               provider: 'azurerm'
               command: 'plan'
               workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
-              commandOptions: '-input=false -var-file=$(System.DefaultWorkingDirectory)/${{ parameters.enviornment }}'
+              commandOptions: '-input=false -var-file=$(System.DefaultWorkingDirectory)/$enviornment'
               environmentServiceNameAzureRM: $(ServiceConnection)                 
           
           - task: ArchiveFiles@2
@@ -152,7 +152,7 @@ stages :
               inputs:
                 provider: 'azurerm'
                 command: 'plan'
-                commandOptions: '-input=false -var-file=$(System.DefaultWorkingDirectory)/${{ parameters.enviornment }}'
+                commandOptions: '-input=false -var-file=$(System.DefaultWorkingDirectory)/$enviornment'
                 environmentServiceNameAzureRM: $(ServiceConnection)
                 workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
 
@@ -161,6 +161,6 @@ stages :
               inputs:
                 provider: 'azurerm'
                 command: 'apply'
-                commandOptions: '-input=false -auto-approve -var-file=$(System.DefaultWorkingDirectory)/${{ parameters.enviornment }}'
+                commandOptions: '-input=false -auto-approve -var-file=$(System.DefaultWorkingDirectory)/$enviornment'
                 environmentServiceNameAzureRM: $(ServiceConnection)
                 workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
