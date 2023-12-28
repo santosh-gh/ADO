@@ -53,7 +53,7 @@ stages :
                   backendAzureRmKey: ${{ variables.backendAzureRmKey}}              
        
               # Equivalent to terraform plan -out main.tfplan
-              - task: TerraformTaskV2@0
+              - task: TerraformTaskV2@2
                 displayName: 'plan'
                 inputs:
                   provider: 'azurerm'
@@ -121,19 +121,19 @@ stages :
                 inputs:
                   terraformVersion: ${{ variables.terraformVersion}}
 
-              - task: TerraformTaskV2@0
+              - task: TerraformTaskV2@2
                 displayName: 'init'
                 inputs:
                   provider: 'azurerm'
-                  command: 'init'
+                  command: 'init'             
+                  workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
                   backendServiceArm: $(ServiceConnection)
                   backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName}}
                   backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName}}
                   backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
                   backendAzureRmKey: ${{ variables.backendAzureRmKey}}
-                  workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
-    
-              - task: TerraformTaskV2@0
+                 
+              - task: TerraformTaskV2@2
                 displayName: 'plan'
                 inputs:
                   provider: 'azurerm'
@@ -142,7 +142,7 @@ stages :
                   environmentServiceNameAzureRM: $(ServiceConnection)
                   workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
 
-              - task: TerraformTaskV2@0
+              - task: TerraformTaskV2@2
                 displayName: 'apply'
                 inputs:
                   provider: 'azurerm'
