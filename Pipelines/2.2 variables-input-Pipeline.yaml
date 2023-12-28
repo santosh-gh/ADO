@@ -5,27 +5,35 @@ trigger:
 
 pr: none
 
-variables:
-- name: terraformVersion
-  value: '1.6.0'
-- name: backendAzureRmResourceGroupName
-  value: 'test-rg'
-- name: backendAzureRmStorageAccountName
-  value: 'teststg8904'
-- name: backendAzureRmContainerName
-  value: 'testcontainer'
-- name: backendAzureRmKey
-  value: 'terraform.tfstate'
-- group: webapp-variables 
-
 parameters:
-- name: enviornment
+- name: env
   displayName: Environment to deploy
   type: string
-  default: Pipelines/Templates/vars/production/production.tfvars
-  values:
-  - "Pipelines/Templates/vars/production/production.tfvars"
-  - "Pipelines/Templates/vars/develop/develop.tfvars"
+  default: dev
+  values:  
+  - dev
+  - test
+  - prd
+
+variables:
+  - name: terraformVersion
+    value: '1.6.0'
+  - name: backendAzureRmResourceGroupName
+    value: 'test-rg'
+  - name: backendAzureRmStorageAccountName
+    value: 'teststg8904'
+  - name: backendAzureRmContainerName
+    value: 'testcontainer'
+  - name: backendAzureRmKey
+    value: 'terraform.tfstate'
+  - group: webapp-variables 
+  - name: enviornment
+    ${{ if eq( parameters['environment'], 'dev') }}:
+      value: "Pipelines/Templates/vars/dev.tfvars"
+    ${{ elseif eq( parameters['environment'], 'test' ) }}:
+      value: "Pipelines/Templates/vars/prd.tfvars"
+    ${{ else }}:
+      value: "Pipelines/Templates/vars/prd.tfvars"
 
 stages :        
   - stage: terraform_plan
