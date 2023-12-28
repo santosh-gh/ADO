@@ -1,6 +1,7 @@
 name: $(BuildDefinitionName)_$(date:yyyyMMdd)$(rev:.r)
 
-trigger: none
+trigger: 
+  - main
 
 pr: none
 
@@ -47,17 +48,30 @@ stages :
                     echo "Structure of work folder of this pipeline:"
                     tree $(System.DefaultWorkingDirectory)
 
-              - task: TerraformTaskV1@0
+              # - task: TerraformTaskV1@0
+              #   displayName: 'init'
+              #   inputs:
+              #     provider: 'azurerm'
+              #     command: 'init'
+              #     backendServiceArm: $(ServiceConnection)
+              #     backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName}}
+              #     backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName}}
+              #     backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
+              #     backendAzureRmKey: ${{ variables.backendAzureRmKey}}
+              #     workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
+
+              # Equivalent to terraform init but with a backend defined
+              - task: TerraformTaskV2@2
                 displayName: 'init'
                 inputs:
                   provider: 'azurerm'
                   command: 'init'
+                  workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
                   backendServiceArm: $(ServiceConnection)
                   backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName}}
                   backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName}}
                   backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
                   backendAzureRmKey: ${{ variables.backendAzureRmKey}}
-                  workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
 
               - task: TerraformTaskV1@0
                 displayName: 'plan'

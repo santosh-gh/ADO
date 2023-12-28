@@ -1,8 +1,16 @@
+# Configure the Azure provider
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.0.2"
+    }
+  }
+  required_version = ">= 1.1.0"
+}
+
 provider "azurerm" {
-    # The "feature" block is required for AzureRM provider 2.x.
-    # If you're using version 1.x, the "features" block is not allowed.
-    version = "~>2.0"
-    features {}
+  features {}
 }
 
 data "azurerm_client_config" "current" {}
@@ -16,6 +24,15 @@ terraform {
     }
 }
 
+{% comment %} terraform {
+    backend "azurerm" {
+      storage_account_name = "tfstatestg11"
+      container_name       = "tfstate"
+      key                  = "terraform-state"
+      access_key           = "+=="
+    }
+  } {% endcomment %}
+  
 # Create Resource Group
 resource "azurerm_resource_group" "tamops" {
   name     = var.resource_group_name
