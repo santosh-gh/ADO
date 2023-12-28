@@ -28,9 +28,9 @@ variables:
     value: 'terraform.tfstate'
   - group: webapp-variables 
   - name: enviornment
-    ${{ if eq( parameters['environment'], 'dev') }}:
+    ${{ if eq( parameters['env'], 'dev') }}:
       value: "Pipelines/Templates/vars/dev.tfvars"
-    ${{ elseif eq( parameters['environment'], 'test' ) }}:
+    ${{ elseif eq( parameters['env'], 'test' ) }}:
       value: "Pipelines/Templates/vars/prd.tfvars"
     ${{ else }}:
       value: "Pipelines/Templates/vars/prd.tfvars"
