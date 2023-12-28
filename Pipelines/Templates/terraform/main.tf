@@ -24,15 +24,6 @@ terraform {
     }
 }
 
-{% comment %} terraform {
-    backend "azurerm" {
-      storage_account_name = "tfstatestg11"
-      container_name       = "tfstate"
-      key                  = "terraform-state"
-      access_key           = "+=="
-    }
-  } {% endcomment %}
-  
 # Create Resource Group
 resource "azurerm_resource_group" "tamops" {
   name     = var.resource_group_name
