@@ -38,6 +38,15 @@ stages :
                 displayName: 'install'
                 inputs:
                   terraformVersion: ${{ variables.terraformVersion}}
+              - task: CmdLine@2
+                displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
+                inputs:
+                  script: |         
+                    echo "System.DefaultWorkingDirectory:" 
+                    echo "$(System.DefaultWorkingDirectory)"
+
+                    echo "Structure of work folder of this pipeline:"
+                    tree $(System.DefaultWorkingDirectory)
          
               # Equivalent to terraform init but with a backend defined
               - task: TerraformTaskV2@2
@@ -107,6 +116,16 @@ stages :
                   cleanDestinationFolder: false
                   displayName: 'Extract Terraform Plan Artifact'
 
+              - task: CmdLine@2
+                displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
+                inputs:
+                  script: |         
+                    echo "System.DefaultWorkingDirectory:" 
+                    echo "$(System.DefaultWorkingDirectory)"
+
+                    echo "Structure of work folder of this pipeline:"
+                    tree $(System.DefaultWorkingDirectory)
+
               - task: TerraformInstaller@0
                 displayName: 'install'
                 inputs:
@@ -123,13 +142,13 @@ stages :
                   backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
                   backendAzureRmKey: ${{ variables.backendAzureRmKey}}
                   workingDirectory: '$(System.DefaultWorkingDirectory)Pipelines/Templates/terraform/'
-
+    
               - task: TerraformTaskV2@0
                 displayName: 'plan'
                 inputs:
                   provider: 'azurerm'
                   command: 'plan'
-                  commandOptions: '-input=false -var-file=$(System.DefaultWorkingDirectory)/${{ parameters.enviornment }}'
+                  commandOptions: '-input=false -var-file=${{ parameters.enviornment }}'
                   environmentServiceNameAzureRM: $(ServiceConnection)
                   workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
 
@@ -138,6 +157,6 @@ stages :
                 inputs:
                   provider: 'azurerm'
                   command: 'apply'
-                  commandOptions: '-input=false -auto-approve -var-file=$(System.DefaultWorkingDirectory)/${{ parameters.enviornment }}'
+                  commandOptions: '-input=false -auto-approve -var-file=${{ parameters.enviornment }}'
                   environmentServiceNameAzureRM: $(ServiceConnection)
                   workingDirectory: '$(System.DefaultWorkingDirectory)/Pipelines/Templates/terraform/'
