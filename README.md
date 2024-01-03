@@ -44,3 +44,6 @@ https://learn.microsoft.com/en-us/azure/devops/pipelines/process/templates?view=
 
 
 https://bogdanbujdea.dev/running-tests-with-code-coverage-in-azure-devops-yaml-pipelines?source=more_series_bottom_blogs
+
+# Bogdan Bujdea
+https://bogdanbujdea.dev/running-tests-with-code-coverage-in-azure-devops-yaml-pipelines?source=more_series_bottom_blogs
