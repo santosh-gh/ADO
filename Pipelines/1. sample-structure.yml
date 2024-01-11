@@ -55,6 +55,15 @@ stages:
               contents: 'Pipelines/Templates/PowerShell/test.ps1'
               targetFolder: $(Build.ArtifactStagingDirectory)
 
+          - task: CmdLine@2
+            displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
+            inputs:
+              script: |    
+                echo "Structure of work folder of this pipeline:"
+                tree $(Agent.WorkFolder)/1
+
+          
+
           - task: PublishBuildArtifacts@1
             displayName: 'Publish Artifacts'
             inputs:
