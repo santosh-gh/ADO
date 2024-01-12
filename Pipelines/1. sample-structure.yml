@@ -60,9 +60,7 @@ stages:
             inputs:
               script: |    
                 echo "Structure of work folder of this pipeline:"
-                tree $(Agent.WorkFolder)/1
-
-          
+                tree $(Agent.WorkFolder)/1          
 
           - task: PublishBuildArtifacts@1
             displayName: 'Publish Artifacts'
