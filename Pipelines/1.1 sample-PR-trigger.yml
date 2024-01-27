@@ -23,4 +23,5 @@ stages:
             inputs:
               script: | 
                 echo "Print the contents of the file:"
+                echo "PR Test"
                 cat Pipelines/Templates/PowerShell/sample.txt
