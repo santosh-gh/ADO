@@ -1,6 +1,3 @@
-# pr:
-# - main
-
 pr:
   branches:
     include:
