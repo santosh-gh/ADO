@@ -1,5 +1,5 @@
 trigger: 
-  - none
+  - main
   
 pr: none
 
@@ -25,7 +25,7 @@ stages:
             displayName: Azure CLI
             inputs:
               azureSubscription: $(ServiceConnection)
-              scriptType: ps
+              scriptType: pscore
               scriptLocation: inlineScript
               inlineScript: |
                 az --version
