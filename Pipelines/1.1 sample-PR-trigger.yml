@@ -29,12 +29,10 @@ pool:
 
 stages:
   - stage: Stage1
-    jobs:
-     variables:
-      - name: var1                                # name of a variable
-        value: ${{ parameters.env}}
-
+    jobs:  
       - job: Job1
+        variables:
+          var1 : ${{ parameters.env}}
         steps:
           - task: CmdLine@2
             displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
