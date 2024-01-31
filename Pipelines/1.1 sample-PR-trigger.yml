@@ -42,7 +42,7 @@ stages:
                 # echo "PR Test"
                 # cat Pipelines/Templates/PowerShell/sample.txt
                 echo {{ parameters.env}}
-                echo ${{ replace(ffc-demo-web-environment, 'environment', parameters.env) }}
+                echo ${{ replace('ffc-demo-web-environment', 'environment', parameters.env) }}
 
 
   # '${{ parameters.env}}'
