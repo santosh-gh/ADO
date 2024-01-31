@@ -9,7 +9,7 @@ resources:
 
 variables:
   - name: var1                                # name of a variable
-    value: 'pipeline-level var1'              # value of the variable
+    value: 'tst1'              # value of the variable
   - name: var2                                # name of a variable
     value: 'pipeline-level var2'              # value of the variable
   - name: variableGroups                                # name of a variable
@@ -30,4 +30,4 @@ stages:
                 echo "Print the contents of the file:"
                 echo "PR Test"
                 cat Pipelines/Templates/PowerShell/sample.txt
-                echo ${{ replace('$(variableGroups)', 'environment', 'tst1')}}
+                echo ${{ replace('$(variableGroups)', 'environment', '$(var1)')}}
