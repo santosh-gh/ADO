@@ -41,7 +41,7 @@ stages:
                 echo "Print the contents of the file:"
                 # echo "PR Test"
                 # cat Pipelines/Templates/PowerShell/sample.txt
-                echo ${{ replace('ffc-demo-web-environment', 'environment', ${{ var1 }}) }}
+                echo ${{ replace($(variableGroups), 'environment', 'fAFS') }}
 
 
   # '${{ parameters.env}}'
