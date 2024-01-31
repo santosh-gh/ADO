@@ -39,7 +39,7 @@ stages:
                 echo "Print the contents of the file:"
                 # echo "PR Test"
                 # cat Pipelines/Templates/PowerShell/sample.txt
-                echo ${{ replace('ffc-demo-web-environment', 'environment', '${{ parameters.env}}') }}
+                echo ${{ replace('ffc-demo-web-environment', 'environment', ${{ parameters.env}}) }}
 
 
   # '${{ parameters.env}}'
