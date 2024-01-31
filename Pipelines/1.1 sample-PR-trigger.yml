@@ -33,13 +33,19 @@ stages:
       - job: Job1
         steps:
           - task: CmdLine@2
+            variables:
+          - name: var1                                # name of a variable
+            value: ${{ parameters.env}}
+
+
+
             displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
             inputs:
               script: | 
                 echo "Print the contents of the file:"
                 # echo "PR Test"
                 # cat Pipelines/Templates/PowerShell/sample.txt
-                echo ${{ replace('ffc-demo-web-environment', 'environment', ${{ parameters.env}}) }}
+                echo ${{ replace('ffc-demo-web-environment', 'environment', $(var1)) }}
 
 
   # '${{ parameters.env}}'
