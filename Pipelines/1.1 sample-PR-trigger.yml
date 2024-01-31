@@ -7,6 +7,14 @@ pr:
 resources:
   - repo: self
 
+variables:
+  - name: var1                                # name of a variable
+    value: 'pipeline-level var1'              # value of the variable
+  - name: var2                                # name of a variable
+    value: 'pipeline-level var2'              # value of the variable
+  - name: variableGroups                                # name of a variable
+    value: 'ffc-demo-web-environment'              # value of the variable
+
 pool:
   vmImage: ubuntu-latest
 
@@ -22,4 +30,4 @@ stages:
                 echo "Print the contents of the file:"
                 echo "PR Test"
                 cat Pipelines/Templates/PowerShell/sample.txt
-                echo ${{ replace('ffc-demo-web-env', 'env', 'tst1')}}
+                echo ${{ replace($(variableGroups), 'environment', 'tst1')}}
