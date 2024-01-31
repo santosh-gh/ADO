@@ -30,12 +30,13 @@ pool:
 stages:
   - stage: Stage1
     jobs:
+     variables:
+      - name: var1                                # name of a variable
+        value: ${{ parameters.env}}
+
       - job: Job1
         steps:
           - task: CmdLine@2
-            variables:
-              - name: var1                                # name of a variable
-                value: ${{ parameters.env}}
             displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
             inputs:
               script: | 
