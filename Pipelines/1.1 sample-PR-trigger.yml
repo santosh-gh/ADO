@@ -36,7 +36,7 @@ stages:
             displayName: "CmdLine Task: Run a command line script using Bash on Linux and macOS and cmd.exe on Windows."
             inputs:
               script: | 
-                # echo "Print the contents of the file:"
+                echo "Print the contents of the file:"
                 # echo "PR Test"
                 # cat Pipelines/Templates/PowerShell/sample.txt
                 echo ${{ replace('$(variableGroups)', 'environment', 'dsadsad') }}
