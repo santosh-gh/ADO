@@ -39,4 +39,7 @@ stages:
                 # echo "Print the contents of the file:"
                 # echo "PR Test"
                 # cat Pipelines/Templates/PowerShell/sample.txt
-                echo ${{ replace('$(variableGroups)', 'environment', '${{ parameters.env}}') }}
+                echo ${{ replace('$(variableGroups)', 'environment', 'dsadsad') }}
+
+
+  # '${{ parameters.env}}'
