@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5yWD82NrmQ0ciqqTc9l2sGuBiNpGLnTwmfFQXLa7uZs56mPgJpJgpUNWgf8E/rkrlR60Z2HsgeuFCoekvmjI8g==",
+  "dgSpecHash": "F3VVxpW/xVWn3yU3ILBW/2IC9i7skL5BKO0qBVSSAXWod8d/cbQK40om/FOdv1/arhgB8+EFOd5FFNLhKUfqmg==",
   "success": true,
   "projectFilePath": "C:\\ADO\\BookStore\\tests\\BookStore.API.Tests\\BookStore.API.Tests.csproj",
   "expectedPackageFiles": [

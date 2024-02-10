@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\ADO\\BookStore\\src\\BookStore.Domain\\BookStore.Domain.csproj",
+      "projectUniqueName": "C:\\ADO\\BookStore\\src\\BookStore.Domain\\BookStore.Domain.csproj",
       "projectName": "BookStore.Domain",
-      "projectPath": "c:\\ADO\\BookStore\\src\\BookStore.Domain\\BookStore.Domain.csproj",
+      "projectPath": "C:\\ADO\\BookStore\\src\\BookStore.Domain\\BookStore.Domain.csproj",
       "packagesPath": "C:\\Users\\HOME\\.nuget\\packages\\",
-      "outputPath": "c:\\ADO\\BookStore\\src\\BookStore.Domain\\obj\\",
+      "outputPath": "C:\\ADO\\BookStore\\src\\BookStore.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HOME\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -59,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.311\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.312\\RuntimeIdentifierGraph.json"
       }
     }
   }

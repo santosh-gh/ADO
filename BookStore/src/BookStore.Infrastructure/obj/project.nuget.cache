@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "g6/f+torwH7IhsEMSRczg50bKuKYlvEdl6vVbsfFgMfkJZm3EARDUGVIkNX3BYG4Amu1GR6smp+os1mIgOCw3w==",
+  "dgSpecHash": "Il83/gd8MAICl4dTzur0ou4G4vsQg5w7yKNRxVMM48Eqv9SYI0DBJVZ9QrL6h1RZlDTpatk1w3gMhwd2DZm07w==",
   "success": true,
   "projectFilePath": "C:\\ADO\\BookStore\\src\\BookStore.Infrastructure\\BookStore.Infrastructure.csproj",
   "expectedPackageFiles": [
