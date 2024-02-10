@@ -1,7 +1,7 @@
 trigger: 
   - main
   
-pr: none
+# pr: none
 
 variables:
   - group: webapp-variables 
